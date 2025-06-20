@@ -17,9 +17,8 @@ Clear instructions and user-friendly interface
 # Getting Started
 
 ## Clone the repository:
-git clone https://github.com/hellosudharshan/rock-paper-scissors.git
-Navigate to the project directory:
-cd rock-paper-scissors
+- git clone https://github.com/hellosudharshan/rock-paper-scissors.git
+- Navigate to the project directory: cd rock-paper-scissors
 
 # Run the game:
 Open home.html in your browser
