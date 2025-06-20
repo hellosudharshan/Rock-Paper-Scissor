@@ -14,14 +14,14 @@ Input validation to ensure fair play
 Score tracking for multiple rounds
 Clear instructions and user-friendly interface
 
-# Getting Started
+## Getting Started
 
 ## Clone the repository:
 - git clone https://github.com/hellosudharshan/rock-paper-scissors.git
 - Navigate to the project directory: cd rock-paper-scissors
 
-# Run the game:
+## Run the game:
 Open home.html in your browser
 
-# Contributing
+## Contributing
 Feel free to fork the repository, submit issues, or open pull requests to improve the game!
