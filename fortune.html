@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune Teller</title>
+    <style>
+        body {
+            font-family: Georgia, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #ff7575 50%, #6262ff 50%);
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="text"] {
+            width: 350px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .nav-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745; /* Green background */
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 20px;
+        font-family: "Georgia", serif; /* Georgia font */
+        transition: background-color 0.3s ease; /* Smooth transition for background color */
+        z-index: 10; /* Ensure the button is on top of other elements */
+    }
+
+    .nav-button:hover {
+        background-color: #218838; }
+
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #6262ff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <button class="nav-button" onclick="navigateToHome()">Go to Home</button>
+
+<div class="container">
+    <h1>Fortune Teller</h1>
+    <input type="text" id="eventInput" placeholder="Enter the event to check whether it will happen or not..." required>
+    <br>
+    <button onclick="tellFortune()">Tell My Fortune</button>
+    <div class="result" id="result"></div>
+    <div class="note" id="note"></div>
+</div>
+
+<script>
+function navigateToHome() {
+    window.location.href = 'home.html';
+}
+
+
+    function tellFortune() {
+        const eventInput = document.getElementById('eventInput').value.trim();
+        const resultDiv = document.getElementById('result');
+        const noteDiv = document.getElementById('note');
+
+        if (eventInput) {
+    const fortunes = [
+        `${eventInput} will not happen in this lifetime!!!`,
+        `${eventInput} will happen surely!!!`,
+        `${eventInput} will happen when you are 80 years!!!`,
+        `${eventInput} may or may not happen!!!`,
+        `${eventInput} will happen when you lose something which you like the most!!!`,
+        `${eventInput} can happen under God's grace!!!`,
+        `${eventInput} will happen after a lot of struggle!!!`,
+        `${eventInput} will happen soon!!!`
+    ];
+    const randomIndex = Math.floor(Math.random() * fortunes.length);
+    resultDiv.textContent = fortunes[randomIndex];
+
+    setTimeout(() => {
+        noteDiv.innerHTML = "Note: Future changes every second and this may or may not happen.";
+    }, 3000);
+} else {
+    resultDiv.innerHTML = "Please enter an event to check.<br>Example: Saravanan getting pass in exam";
+    noteDiv.textContent = "";
+}
+
+    }
+</script>
+
+</body>
+</html>

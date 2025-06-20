@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rock-Paper-Scissors</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="./style2.css">
+  <style>
+    .nav-buttons-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 20px;
+        position: absolute;
+        top: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .nav-button {
+        padding: 10px 20px;
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 20px;
+        font-family: "Georgia", serif;
+        transition: background-color 0.3s ease;
+        z-index: 10;
+        min-width: 120px;
+    }
+
+    .nav-button:hover {
+        opacity: 0.8;
+    }
+
+    .nav-button.home {
+        background-color: #28a745;
+    }
+
+    .nav-button.home:hover {
+        background-color: #218838;
+    }
+
+    .nav-button.fortune {
+        background-color: #007bff;
+    }
+
+    .nav-button.fortune:hover {
+        background-color: #0056b3;
+    }
+
+    .nav-button.rounds {
+        background-color: #ffc107;
+    }
+
+    .nav-button.rounds:hover {
+        background-color: #e0a800;
+    }
+
+    .nav-button.points {
+        background-color: #dc3545;
+    }
+
+    .nav-button.points:hover {
+        background-color: #c82333;
+    }
+
+    .nav-button.rules {
+        background-color: #17a2b8;
+    }
+
+    .nav-button.rules:hover {
+        background-color: #138496;
+    }
+
+    .scene__actions {
+      display: none;
+    }
+
+    .note {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      font-family: "Georgia", serif;
+      font-size: 16px;
+      color: #333;
+      border: 1px solid #ddd;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 20;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 600px;
+        width: 80%;
+        text-align: center;
+    }
+
+    .modal-header {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .modal-body {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .close-btn {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .close-btn:hover {
+        background: #c82333;
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 8px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .input-group button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .input-group button:hover {
+        background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons-container">
+    <button class="nav-button home" onclick="window.location.href='home.html'">Go to Home</button>
+	<button class="nav-button rounds" onclick="showRoundsModal()">Select Rounds</button>
+    <button class="nav-button points" onclick="showPointsModal()">Select Max Points</button>
+    <button class="nav-button rules" onclick="showRules()">Rules</button>
+  </div>
+
+  <!-- Note Text -->
+  <div class="note">
+    Note: Select the Number of Rounds or Maximum point to begin the game.
+  </div>
+
+  <!-- Game Content -->
+  <div class="scene">
+    <div class="scene__score-board">
+      <div class="scene__score-board_left" id="score-left">0</div>
+      <div class="scene__score-board_right" id="score-right">0</div>
+    </div>
+    <div class="scene__title" id="title">
+      You are red
+    </div>
+    <div class="scene__content">
+      <div class="scene__hand-container">
+        <div class="scene__hand scene__hand_left scene__hand_rock" id="hand-left"></div>
+      </div>
+      <div class="scene__hand-container">
+        <div class="scene__hand scene__hand_right scene__hand_rock" id="hand-right"></div>
+      </div><br><br>
+    </div>
+    <div class="scene__actions">
+      <button type="button" data-type="1">Rock</button>
+      <button type="button" data-type="2">Paper</button>
+      <button type="button" data-type="3">Scissors</button>
+    </div>
+  </div>
+
+  <!-- Rules Modal -->
+  <div class="modal" id="rulesModal">
+    <div class="modal-content">
+      <div class="modal-header">Game Rules</div><hr>
+      <div class="modal-body">
+        <p><strong>Rock-Paper-Scissors</strong> is a simple game where:</p>
+        <ul>
+          <li><strong>Rock</strong> beats <strong>Scissors</strong></li>
+          <li><strong>Scissors</strong> beats <strong>Paper</strong></li>
+          <li><strong>Paper</strong> beats <strong>Rock</strong></li>
+        </ul><br>
+        <p>The game is played in multiple rounds or until a player reaches the maximum points. The player with the most points wins.</p>
+        <b>Win the Game to Check your Fortune</b>
+      </div>
+      <button class="close-btn" onclick="closeRules()">Close</button>
+    </div>
+  </div>
+
+  <!-- Rounds Modal -->
+  <div class="modal" id="roundsModal">
+    <div class="modal-content">
+      <div class="modal-header">Select Number of Rounds</div>
+      <div class="modal-body">
+        <div class="input-group">
+          <label for="roundsInput">Enter Number of Rounds:</label>
+          <input type="number" id="roundsInput" min="1">
+          <button onclick="setRounds()">Set Rounds</button>
+        </div>
+      </div>
+      <button class="close-btn" onclick="closeRoundsModal()">Close</button>
+    </div>
+  </div>
+
+  <!-- Points Modal -->
+  <div class="modal" id="pointsModal">
+    <div class="modal-content">
+      <div class="modal-header">Select Maximum Points</div>
+      <div class="modal-body">
+        <div class="input-group">
+          <label for="pointsInput">Enter Maximum Points:</label>
+          <input type="number" id="pointsInput" min="1">
+          <button onclick="setMaxPoints()">Set Points</button>
+        </div>
+      </div>
+      <button class="close-btn" onclick="closePointsModal()">Close</button>
+    </div>
+  </div>
+
+  <!-- Final Result Modal -->
+  <div class="modal" id="resultModal">
+    <div class="modal-content">
+      <div class="modal-header">Game Over</div><hr><br>
+      <div class="modal-body" id="resultMessage">
+        <!-- Result message will be inserted here -->
+      </div>
+      <div id="fortuneButtonContainer" style="display: none;">
+        <!-- Fortune button will be inserted here -->
+      </div><br>
+      <button class="close-btn" onclick="closeResultModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    let rounds = 0;
+    let maxPoints = 0;
+    let totalRounds = 0;
+    let currentRound = 0;
+    let userWins = 0;
+    let opponentWins = 0;
+
+    function showRoundsModal() {
+        document.getElementById('roundsModal').style.display = 'flex';
+    }
+
+    function setRounds() {
+        const roundsInput = document.getElementById('roundsInput').value;
+        if (parseInt(roundsInput) > 0) {
+            rounds = parseInt(roundsInput);
+            totalRounds = rounds;
+            userWins = 0;
+            opponentWins = 0;
+            currentRound = 0;
+            maxPoints = 0; // Reset maxPoints
+            document.querySelector('.scene__actions').style.display = 'block'; // Show the action buttons
+            alert("You selected " + rounds + " rounds. Good luck!");
+            closeRoundsModal();
+        } else {
+            alert("Please enter a valid Number of Rounds.");
+        }
+    }
+
+    function showPointsModal() {
+        document.getElementById('pointsModal').style.display = 'flex';
+    }
+
+    function setMaxPoints() {
+        const pointsInput = document.getElementById('pointsInput').value;
+        if (parseInt(pointsInput) > 0) {
+            maxPoints = parseInt(pointsInput);
+            rounds = 0; // Reset rounds
+            totalRounds = 0; // Reset totalRounds
+            userWins = 0;
+            opponentWins = 0;
+            document.querySelector('.scene__actions').style.display = 'block'; // Show the action buttons
+            alert("You selected Maximum Points of " + maxPoints + ". Good luck!");
+            closePointsModal();
+        } else {
+            alert("Please enter a valid number of Maximum Points.");
+        }
+    }
+
+    function showRules() {
+        document.getElementById('rulesModal').style.display = 'flex';
+    }
+
+    function closeRules() {
+        document.getElementById('rulesModal').style.display = 'none';
+    }
+
+    function closeRoundsModal() {
+        document.getElementById('roundsModal').style.display = 'none';
+    }
+
+    function closePointsModal() {
+        document.getElementById('pointsModal').style.display = 'none';
+    }
+
+    function closeResultModal() {
+        document.getElementById('resultModal').style.display = 'none';
+    }
+
+    const [ userHand, opponentHand, title, scoreLeft, scoreRight ] = ['#hand-left', '#hand-right', '#title', '#score-left', '#score-right']
+        .map(selector => document.querySelector(selector));
+    const buttons = document.querySelectorAll('[data-type]');
+    const possibilities = Object.freeze({ 1: "rock", 2: 'paper', 3: 'scissor' });
+    const outcomes = Object.freeze({ 1: "Tie", 2: 'Loose', 3: 'Win' });
+    const state = { user: { lastModifier: 'scene__hand_rock', wins: 0 }, opponent: { lastModifier: 'scene__hand_rock', wins: 0 } };
+    
+    const getRandomFromObj = (obj) =>  Math.floor((Math.random() * Object.keys(obj).length) + 1);
+    const getLogic = (outcomes, a, b) => a === b ? outcomes[1] : (((a - b + 3) % 3 === 1)) ? outcomes[2] : outcomes[3];
+    const getModifier = (modifier) => `scene__hand_${modifier}`;
+
+    const updateDOM = (opponentChoice, choiceDataType) => {
+        userHand.classList.remove(state.user.lastModifier);
+        opponentHand.classList.remove(state.opponent.lastModifier);
+        state.user.lastModifier = getModifier(possibilities[choiceDataType]);
+        state.opponent.lastModifier = getModifier(possibilities[opponentChoice]);
+        userHand.classList.add(state.user.lastModifier);
+        opponentHand.classList.add(state.opponent.lastModifier);
+
+        const outcome = getLogic(outcomes, opponentChoice, choiceDataType);
+        if (outcome === 'Win') userWins++;
+        if (outcome === 'Loose') opponentWins++;
+
+        scoreLeft.textContent = userWins;
+        scoreRight.textContent = opponentWins;
+        title.textContent = outcome;
+
+        if (rounds > 0) {
+            currentRound++;
+            if (currentRound === totalRounds) {
+                setTimeout(() => showFinalResult(), 1000);
+            }
+        } else if (maxPoints > 0) {
+            if (userWins >= maxPoints || opponentWins >= maxPoints) {
+                setTimeout(() => showFinalResult(), 1000);
+            }
+        }
+    }
+
+    const getOutcomeAndUpdateDOM = (e) => {
+        if (totalRounds > 0 || maxPoints > 0) {
+            const choiceDataType = Number(e.target.getAttribute('data-type'));
+            const opponentChoice = getRandomFromObj(possibilities);
+            updateDOM(opponentChoice, choiceDataType);
+        } else {
+            alert("Please select the Number of Rounds or Maximum Points first.");
+        }
+    }
+
+    const showFinalResult = () => {
+        let result;
+        let resultEmoji;
+
+        if (userWins > opponentWins) {
+            result = "You Win!";
+            resultEmoji = "🏆";
+            fortuneButtonContainer.innerHTML = `<button class="nav-button fortune" onclick="window.location.href='fortune.html'">Check Fortune</button><br>`;
+            fortuneButtonContainer.style.display = 'block';
+        } else if (userWins < opponentWins) {
+            result = "You Lose!";
+            resultEmoji = "😔";
+        } else {
+            result = "It's a Tie!";
+            resultEmoji = "🤝";
+        }
+
+        // Display result in the modal
+        document.getElementById('resultMessage').textContent = result + " " + resultEmoji + "\nFinal Score - You: " + userWins + ", Opponent: " + opponentWins;
+        document.getElementById('resultModal').style.display = 'flex'; // Show the result modal
+        document.querySelector('.scene__actions').style.display = 'none'; // Hide action buttons
+    }
+
+    buttons.forEach((button) => button.addEventListener('click', function (e) {
+        getOutcomeAndUpdateDOM(e);
+    }));
+
+    let timer;
+    const callback = (entry) => {
+        clearTimeout(timer);
+        const target = entry[0].target;
+        target.classList.add('scene__title_modified');
+        timer = setTimeout(() => target.classList.remove('scene__title_modified'), 1000);
+    }
+
+    const observer = new MutationObserver(callback);
+    observer.observe(title, { childList: true });
+  </script>
+</body>
+</html>
