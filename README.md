@@ -2,9 +2,9 @@
 Rock Paper Scissors is a classic hand game played between two people, where each player simultaneously forms one of three shapes with their hand: rock, paper, or scissors.
 The winner is determined by the rules:
 
-Rock beats Scissors
-Scissors beats Paper
-Paper beats Rock
+- Rock beats Scissors
+- Scissors beats Paper
+- Paper beats Rock
 
 This repository contains a simple implementation of the Rock Paper Scissors game. The game can be played in the terminal/console, or through a graphical/web interface, depending on the version.
 Features
