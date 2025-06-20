@@ -22,7 +22,7 @@ Navigate to the project directory:
 cd rock-paper-scissors
 
 # Run the game:
-Open index.html in your browser
+Open home.html in your browser
 
 # Contributing
 Feel free to fork the repository, submit issues, or open pull requests to improve the game!
