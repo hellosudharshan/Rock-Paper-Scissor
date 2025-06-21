@@ -21,7 +21,7 @@ Clear instructions and user-friendly interface
 - Navigate to the project directory: cd rock-paper-scissors
 
 ## Run the game:
-Open home.html in your browser
+Open index.html in your browser
 
 
 https://github.com/user-attachments/assets/4439aa21-30d9-4b0e-8d7d-7e0bdf6aebae
