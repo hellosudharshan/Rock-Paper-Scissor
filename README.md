@@ -7,7 +7,7 @@ The winner is determined by the rules:
 - Paper beats Rock
 
 This repository contains a simple implementation of the Rock Paper Scissors game. The game can be played in the terminal/console, or through a graphical/web interface, depending on the version.
-
+Feel free to play : https://rock-paper-scissor-theta-rosy.vercel.app/
 ## Features
 Play against the computer or another player
 Input validation to ensure fair play
