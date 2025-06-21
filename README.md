@@ -22,7 +22,11 @@ Clear instructions and user-friendly interface
 
 ## Run the game:
 Open home.html in your browser
-https://github.com/user-attachments/assets/324a790f-dbaa-462e-9108-8c3dd88a8e2e
+
+
+https://github.com/user-attachments/assets/4439aa21-30d9-4b0e-8d7d-7e0bdf6aebae
+
+
 
 ## Contributing
 Feel free to fork the repository, submit issues, or open pull requests to improve the game!
